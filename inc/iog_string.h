@@ -1,6 +1,7 @@
 #ifndef IOG_STRING_H
 #define IOG_STRING_H
 
+typedef int (*strcmp_func_t) (const char *, const char *);
 
 size_t istrlen ( const char *str );
 
