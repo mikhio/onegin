@@ -1,4 +1,6 @@
+#include <ctype.h>
 #include "../inc/iog_assert.h"
+
 
 size_t istrlen(const char *str) {
   IOG_ASSERT(str);
@@ -42,7 +44,7 @@ int istrcmp(const char *first_str, const char *second_str) {
   size_t str_index = 0;
 
   do {
-    diff = (int) first_str[str_index] - (int) second_str[str_index];
+    diff = (int) tolower(first_str[str_index]) - (int) tolower(second_str[str_index]);
     
     if ((first_str[str_index] == '\0') || (second_str[str_index] == '\0'))
       break;

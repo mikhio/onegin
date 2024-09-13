@@ -7,6 +7,7 @@
 #include "../inc/iog_string.h"
 #include "../inc/text_reader.h"
 #include "../inc/text_sorter.h"
+#include "../inc/string_compare.h"
 
 
 int main(int argc, const char *argv[]) {
@@ -14,7 +15,7 @@ int main(int argc, const char *argv[]) {
   
   readTextData("onegin.txt", &onegin);
 
-  sortText(&onegin, &istrcmp);
+  sortText(&onegin, &str_compare_forward);
 
   for (int i = 0; i < onegin.lines_size; i++ ) {
     printf("'%s'\n", onegin.lines[i]);

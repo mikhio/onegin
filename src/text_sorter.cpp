@@ -3,7 +3,7 @@
 
 #include "../inc/text_sorter.h"
 #include "../inc/iog_assert.h"
-#include "../inc/iog_string.h"
+#include "../inc/string_compare.h"
 
 ReturnCode sortText(Text *text, strcmp_func_t compareFunc) {
   IOG_ASSERT(text);
