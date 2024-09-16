@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "../inc/iog_assert.h"
-
+#include "../inc/cli_colors.h"
 #include "../inc/iog_string.h"
 #include "../inc/text_reader.h"
 #include "../inc/text_sorter.h"
@@ -15,8 +15,10 @@ int main(int argc, const char *argv[]) {
   
   readTextData("onegin.txt", &onegin);
 
+
   sortText(&onegin, &str_compare_forward);
 
+  printf(BLACK("-------- RESULT ---------\n"));
   for (int i = 0; i < onegin.lines_size; i++ ) {
     printf("'%s'\n", onegin.lines[i]);
   }

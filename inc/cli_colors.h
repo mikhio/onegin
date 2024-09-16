@@ -16,6 +16,7 @@
 #define GREEN(str)   COLOR_GRN str COLOR_RESET ///< Macros that set green color to str
 #define MAGENTA(str) COLOR_MAG str COLOR_RESET ///< Macros that set magenta color to str
 #define BLACK(str)   COLOR_BLK str COLOR_RESET ///< Macros that set black color to str
+#define BLUE(str)    COLOR_BLU str COLOR_RESET ///< Macros that set blue color to str
 
 
 

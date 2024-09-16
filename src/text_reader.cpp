@@ -60,9 +60,9 @@ ReturnCode readFileLen(FILE *text_file, Text *text) {
     return ERR_CANT_READ_FILE;
 
   printf(BLACK("------ READING FILE STAT ------- \n"));
-  printf(BLACK("[INFO] ST_SIZE:    ")  "%lld" "\n", stat_buf.st_size); 
-  printf(BLACK("[INFO] ST_BLKSIZE: ")  "%d"   "\n", stat_buf.st_blksize); 
-  printf(BLACK("[INFO] ST_BLOCKS:  ")  "%lld" "\n", stat_buf.st_blocks); 
+  printf(BLUE("[INFO]") BLACK(" ST_SIZE:    ")  "%lld" "\n", stat_buf.st_size); 
+  printf(BLUE("[INFO]") BLACK(" ST_BLKSIZE: ")  "%d"   "\n", stat_buf.st_blksize); 
+  printf(BLUE("[INFO]") BLACK(" ST_BLOCKS:  ")  "%lld" "\n", stat_buf.st_blocks); 
   printf("\n");
 
   text->buffer_size = stat_buf.st_size;
@@ -82,8 +82,8 @@ ReturnCode splitTextToLines(Text *text) {
     return ERR_CANT_ALLOCATE;
   
   printf(BLACK("------ SPLITING ------- \n"));
-  printf(BLACK("[INFO] ") "lines_size     = %lu\n", text->lines_size);
-  printf(BLACK("[INFO] ") "lines_capacity = %lu\n", text->lines_capacity);
+  printf(BLUE("[INFO] ") BLACK("lines_size     ") "= %lu\n", text->lines_size);
+  printf(BLUE("[INFO] ") BLACK("lines_capacity ") "= %lu\n", text->lines_capacity);
   printf("\n");
   
   text->lines[0] = text->buffer;
@@ -97,17 +97,23 @@ ReturnCode splitTextToLines(Text *text) {
       if (text->buffer[i+1] == '\n' || text->buffer[i+1] == '\0') {
         text->lines_size--;
         text->buffer[i] = '\0';
+        printf(RED("[SKIP] ") BLACK("NULL %p") " '%c'\n", &text->buffer[i], text->buffer[i]);
         continue;
       }
 
       text->lines[line_count] = text->buffer + i + 1;
-
       text->buffer[i] = '\0';
+      printf(GREEN("[READ] ") BLACK("%p %p") " '%s'\n", 
+          &text->lines[line_count-1],
+          text->lines[line_count-1],
+          text->lines[line_count-1]
+      );
       line_count++;
     }
   }
   
-  printf(BLACK("[INFO] ") "line_count = %lu\n", line_count);
+  printf("\n");
+  printf(BLUE("[INFO] ") BLACK("line_count") " = %lu -> " BLACK("lines_size") " = %lu\n", line_count, text->lines_size);
   printf("\n");
 
   return OK;
