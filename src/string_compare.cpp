@@ -4,9 +4,12 @@
 #include "../inc/iog_assert.h"
 #include "../inc/cli_colors.h"
 
-int str_compare_forward  (const char *str1, const char *str2) {
-  IOG_ASSERT(str1);
-  IOG_ASSERT(str2);
+int str_compare_forward  (const void *ptr1, const void *ptr2) {
+  IOG_ASSERT(ptr1);
+  IOG_ASSERT(ptr2);
+
+  const char *str1 = *((const char **) ptr1);
+  const char *str2 = *((const char **) ptr2);
 
   const char *str1_filtered = skipExtraChars(str1);
   const char *str2_filtered = skipExtraChars(str2);

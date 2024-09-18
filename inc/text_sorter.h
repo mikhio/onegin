@@ -6,10 +6,10 @@
 #include "../inc/return_codes.h"
 #include "../inc/string_compare.h"
 
-typedef int (*compare_func_t) (void *, void *);
+typedef int (*compare_func_t) (const void *, const void *);
 
-ReturnCode bubbleSort(void *arr, size_t arr_len, compare_func_t compareFunc);
-ReturnCode sortText(Text *text, strcmp_func_t compareFunc);
+ReturnCode bubbleSort(void *arr, size_t arr_len, size_t el_size, compare_func_t compareFunc);
+ReturnCode sortText(Text *text, compare_func_t compareFunc);
 ReturnCode swapPointers(void **first, void **second);
 
 #endif // TEXT_SORTER_H
