@@ -10,6 +10,6 @@ typedef int (*compare_func_t) (const void *, const void *);
 
 ReturnCode bubbleSort(void *arr, size_t arr_len, size_t el_size, compare_func_t compareFunc);
 ReturnCode sortText(Text *text, compare_func_t compareFunc);
-ReturnCode swapPointers(void **first, void **second);
+ReturnCode swapElements(void *first, void *second, size_t el_size);
 
 #endif // TEXT_SORTER_H

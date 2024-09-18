@@ -2,13 +2,15 @@
 #define TEXT_READER_H
 
 #include "../inc/return_codes.h"
+#include "../inc/string_compare.h"
+
 
 struct Text {
   char  *buffer;
   size_t buffer_capacity;
   size_t buffer_size;
   
-  char **lines;
+  StrLine *lines;
   size_t lines_capacity;
   size_t lines_size;
 };

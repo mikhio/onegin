@@ -12,6 +12,7 @@
 
 int main(int argc, const char *argv[]) {
   Text onegin = {};
+
   
   readTextData("onegin.txt", &onegin);
 
@@ -20,7 +21,7 @@ int main(int argc, const char *argv[]) {
 
   printf(BLACK("-------- RESULT ---------\n"));
   for (int i = 0; i < onegin.lines_size; i++ ) {
-    printf("'%s'\n", onegin.lines[i]);
+    printf("'%s'\n", onegin.lines[i].line);
   }
 
   freeAllTextData(&onegin);
