@@ -11,9 +11,9 @@ ReturnCode sortText(Text *text, compare_func_t compareFunc) {
   IOG_ASSERT(compareFunc);
 
   // -- qsort doesn't work for array of pointers --
-  //qsort(text->lines, text->lines_size, sizeof(char *), (compare_func_t) compareFunc);
+  //qsort(text->lines, text->lines_size, sizeof(StrLine),  compareFunc);
   
-  bubbleSort(text->lines, text->lines_size, sizeof (StrLine), (compare_func_t) compareFunc);
+  bubbleSort(text->lines, text->lines_size, sizeof (StrLine), compareFunc);
 
   return OK;
 }

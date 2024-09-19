@@ -14,9 +14,10 @@ int strcmp_bwd (const StrLine *first_str, const StrLine *second_str);
 int str_compare_forward  (const void *str1, const void *str2);
 int str_compare_backward (const void *str1, const void *str2);
 
-int mywrap_str_compare(const void *ptr1, const void *ptr2, strcmp_func_t compare_func);
+int mywrap_str_compare (const void *ptr1, const void *ptr2, strcmp_func_t compare_func);
 
 
-ReturnCode skipExtraChars(StrLine *str);
+ReturnCode skipExtraCharsFront (StrLine *str);
+ReturnCode skipExtraCharsBack  (StrLine *str);
 
 #endif // COMPARE_H

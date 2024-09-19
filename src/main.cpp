@@ -17,7 +17,7 @@ int main(int argc, const char *argv[]) {
   readTextData("onegin.txt", &onegin);
 
 
-  sortText(&onegin, &str_compare_forward);
+  sortText(&onegin, &str_compare_backward);
 
   printf(BLACK("-------- RESULT ---------\n"));
   for (int i = 0; i < onegin.lines_size; i++ ) {
