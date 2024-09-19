@@ -5,10 +5,15 @@
 #include "../inc/text_sorter.h"
 #include "../inc/iog_assert.h"
 #include "../inc/string_compare.h"
+#include "../inc/cli_args_handler.h"
 
-ReturnCode sortText(Text *text, compare_func_t compareFunc) {
+ReturnCode sortText(const CliOptions *opts, Text *text) {
   IOG_ASSERT(text);
-  IOG_ASSERT(compareFunc);
+  IOG_ASSERT(opts);
+
+  compare_func_t compareFunc = str_compare_forward;
+  if (opts->is_back)
+    compareFunc = str_compare_backward;
 
   // -- qsort doesn't work for array of pointers --
   //qsort(text->lines, text->lines_size, sizeof(StrLine),  compareFunc);

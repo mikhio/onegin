@@ -8,8 +8,8 @@
 
 typedef int (*compare_func_t) (const void *, const void *);
 
-ReturnCode bubbleSort(void *arr, size_t arr_len, size_t el_size, compare_func_t compareFunc);
-ReturnCode sortText(Text *text, compare_func_t compareFunc);
-ReturnCode swapElements(void *first, void *second, size_t el_size);
+ReturnCode bubbleSort   (void *arr, size_t arr_len, size_t el_size, compare_func_t compareFunc);
+ReturnCode sortText     (const CliOptions *opts, Text *text);
+ReturnCode swapElements (void *first, void *second, size_t el_size);
 
 #endif // TEXT_SORTER_H

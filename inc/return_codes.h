@@ -7,8 +7,9 @@ enum ReturnCode {
   ERR_CANT_READ_FILE = 3,
   ERR_CANT_SPLIT     = 4,
   ERR_NULL_BUFFER    = 5,
+  ERR_NO_OUTPUT_FILE = 6,
 
-  NR_RETURN_CODE     = 6,
+  NR_RETURN_CODE     = 7,
 };
 
 #endif // RETURN_CODES_H

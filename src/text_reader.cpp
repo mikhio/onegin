@@ -6,21 +6,22 @@
 #include "../inc/return_codes.h"
 #include "../inc/cli_colors.h"
 #include "../inc/iog_assert.h"
+#include "../inc/cli_args_handler.h"
 
 
-ReturnCode readTextData(const char *file_path, Text *text) {
+ReturnCode readTextData(const CliOptions *opts, Text *text) {
+  IOG_ASSERT(opts);
   IOG_ASSERT(text);
-  IOG_ASSERT(file_path);
 
-  FILE *text_file = fopen(file_path, "rb");
+  FILE *text_file = fopen(opts->file_with_text, "rb");
 
   if (!text_file) {
-    fprintf(stderr, RED("ERROR: ") "Can't open file: " BLACK("%s") "\n", file_path);
+    fprintf(stderr, RED("ERROR: ") "Can't open file: " BLACK("%s") "\n", opts->file_with_text);
     return ERR_CANT_READ_FILE;
   }
   
   if (readFileLen(text_file, text) != OK) {
-    fprintf(stderr, RED("ERROR: ") "Can't read length of file: " BLACK("%s") "\n", file_path);
+    fprintf(stderr, RED("ERROR: ") "Can't read length of file: " BLACK("%s") "\n", opts->file_with_text);
 
     fclose(text_file);
     return ERR_CANT_READ_FILE;
@@ -34,7 +35,7 @@ ReturnCode readTextData(const char *file_path, Text *text) {
   }
 
   if (fread(text->buffer, sizeof(char), text->buffer_size, text_file) < text->buffer_size) {
-    fprintf(stderr, RED("ERROR: ") "Can't read text from file: " BLACK("%s") "\n", file_path);
+    fprintf(stderr, RED("ERROR: ") "Can't read text from file: " BLACK("%s") "\n", opts->file_with_text);
 
     fclose(text_file);
     return ERR_CANT_READ_FILE;

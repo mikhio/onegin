@@ -40,7 +40,7 @@ clean:
 
 .PHONY: run
 run:
-	$(APP_PATH)
+	$(APP_PATH) -d -b onegin.txt
 
 .PHONY: docs
 docs: Doxyfile

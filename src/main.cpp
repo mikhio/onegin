@@ -2,22 +2,29 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../inc/iog_assert.h"
+#include "../inc/cli_args_handler.h"
 #include "../inc/cli_colors.h"
-#include "../inc/iog_string.h"
 #include "../inc/text_reader.h"
 #include "../inc/text_sorter.h"
 #include "../inc/string_compare.h"
 
 
 int main(int argc, const char *argv[]) {
+  CliOptions opts = {};
   Text onegin = {};
 
+  //TODO:defualt opts
+
+  if (handleProgramArgs(&opts, argc, argv) != OK) {
+    fprintf(stderr, RED("ERROR: ") "Can't handle args");
+    return -1;
+  }
   
-  readTextData("onegin.txt", &onegin);
+  if (readTextData(&opts, &onegin) != OK) {
+    return -1;
+  }
 
-
-  sortText(&onegin, &str_compare_backward);
+  sortText(&opts, &onegin);
 
   printf(BLACK("-------- RESULT ---------\n"));
   for (int i = 0; i < onegin.lines_size; i++ ) {

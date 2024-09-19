@@ -3,6 +3,7 @@
 
 #include "../inc/return_codes.h"
 #include "../inc/string_compare.h"
+#include "../inc/cli_args_handler.h"
 
 
 struct Text {
@@ -15,7 +16,7 @@ struct Text {
   size_t lines_size;
 };
 
-ReturnCode readTextData (const char *file_path, Text *text);
+ReturnCode readTextData (const CliOptions *opts, Text *text);
 ReturnCode readFileLen  (FILE *text_file, Text *text);
 
 ReturnCode splitTextToLines (Text *text);
