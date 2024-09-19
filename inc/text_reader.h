@@ -18,6 +18,7 @@ struct Text {
 
 ReturnCode readTextData (const CliOptions *opts, Text *text);
 ReturnCode readFileLen  (FILE *text_file, Text *text);
+ReturnCode fillBuffer   (FILE *text_file, Text *text);
 
 ReturnCode splitTextToLines (Text *text);
 ReturnCode countLines       (Text *text);

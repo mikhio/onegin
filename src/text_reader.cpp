@@ -34,20 +34,28 @@ ReturnCode readTextData(const CliOptions *opts, Text *text) {
     return ERR_CANT_ALLOCATE;
   }
 
-  if (fread(text->buffer, sizeof(char), text->buffer_size, text_file) < text->buffer_size) {
+  if (fillBuffer(text_file, text) != OK) {
     fprintf(stderr, RED("ERROR: ") "Can't read text from file: " BLACK("%s") "\n", opts->file_with_text);
-
     fclose(text_file);
-    return ERR_CANT_READ_FILE;
   }
-
-  text->buffer[text->buffer_size] = 0; // TODO: move to function
   
   if (splitTextToLines(text) != OK) {
     fprintf(stderr, MAGENTA("Warrning: ") "Can't split text to lines" "\n");
   }
 
   fclose(text_file);
+  return OK;
+}
+
+ReturnCode fillBuffer(FILE *text_file, Text *text) {
+  IOG_ASSERT(text_file);
+  IOG_ASSERT(text);
+
+  if (fread(text->buffer, sizeof(char), text->buffer_size, text_file) < text->buffer_size)
+    return ERR_CANT_READ_FILE;
+
+  text->buffer[text->buffer_size] = 0;
+
   return OK;
 }
 

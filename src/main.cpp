@@ -26,9 +26,11 @@ int main(int argc, const char *argv[]) {
 
   sortText(&opts, &onegin);
 
-  printf(BLACK("-------- RESULT ---------\n"));
-  for (int i = 0; i < onegin.lines_size; i++ ) {
-    printf("'%s'\n", onegin.lines[i].line);
+  if (opts.output_file == NULL) {
+    printf(BLACK("-------- RESULT ---------\n"));
+    for (int i = 0; i < onegin.lines_size; i++ ) {
+      printf("'%s'\n", onegin.lines[i].line);
+    }
   }
 
   freeAllTextData(&onegin);
