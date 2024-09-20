@@ -3,6 +3,7 @@ CXX := clang++
 SRC_PATH := ./src
 APP_PATH := ./build/onegin
 CCH_PATH := ./cpp_cache
+INCLUDE_PATH := ./inc
 
 SOURCES := $(wildcard $(SRC_PATH)/*.cpp)
 OBJECTS := $(addprefix $(CCH_PATH)/, $(patsubst %.cpp, %.o, $(SOURCES)))
@@ -26,9 +27,9 @@ $(APP_PATH): $(OBJECTS)
 	@mkdir -p $(@D)
 	$(CXX) $(CXX_FLAGS) $^ -o $(APP_PATH)
 
-$(CCH_PATH)/$(SRC_PATH)/%.o: $(SRC_PATH)/%.cpp ./inc/*.h Makefile
+$(CCH_PATH)/$(SRC_PATH)/%.o: $(SRC_PATH)/%.cpp $(INCLUDE_PATH)/*.h Makefile
 	@mkdir -p $(@D)
-	$(CXX) -c $< -o $@
+	$(CXX) -I$(INCLUDE_PATH) -c $< -o $@ 
 
 # Simplification
 .PHONY: build

@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "../inc/iog_assert.h"
-#include "../inc/cli_colors.h"
+#include "iog_assert.h"
+#include "cli_colors.h"
 
 /**
  * Printf error and call exit(1)

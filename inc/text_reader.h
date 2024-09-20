@@ -1,9 +1,9 @@
 #ifndef TEXT_READER_H
 #define TEXT_READER_H
 
-#include "../inc/return_codes.h"
-#include "../inc/string_compare.h"
-#include "../inc/cli_args_handler.h"
+#include "return_codes.h"
+#include "string_compare.h"
+#include "cli_args_handler.h"
 
 
 struct Text {

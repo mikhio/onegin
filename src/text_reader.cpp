@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../inc/text_reader.h"
-#include "../inc/return_codes.h"
-#include "../inc/cli_colors.h"
-#include "../inc/iog_assert.h"
-#include "../inc/cli_args_handler.h"
+#include "text_reader.h"
+#include "return_codes.h"
+#include "cli_colors.h"
+#include "iog_assert.h"
+#include "cli_args_handler.h"
 
 
 ReturnCode readTextData(const CliOptions *opts, Text *text) {
@@ -36,7 +36,9 @@ ReturnCode readTextData(const CliOptions *opts, Text *text) {
 
   if (fillBuffer(text_file, text) != OK) {
     fprintf(stderr, RED("ERROR: ") "Can't read text from file: " BLACK("%s") "\n", opts->file_with_text);
+
     fclose(text_file);
+    return ERR_CANT_FILL_BUFFER;
   }
   
   if (splitTextToLines(text) != OK) {
@@ -102,13 +104,6 @@ ReturnCode splitTextToLines(Text *text) {
     if (text->buffer[i] == '\n') { 
       if (line_count >= text->lines_size)
         return ERR_CANT_SPLIT;
-
-      /*if (text->buffer[i+1] == '\n' || text->buffer[i+1] == '\0') {
-        text->lines_size--;
-        text->buffer[i] = '\0';
-        printf(RED("[SKIP] ") BLACK("NULL %p") " '%c'\n", &text->buffer[i], text->buffer[i]);
-        continue;
-      }*/
 
       text->lines[line_count].line = text->buffer + i + 1;
       text->lines[line_count-1].length = text->lines[line_count].line - text->lines[line_count-1].line - 1;

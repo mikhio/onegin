@@ -1,8 +1,8 @@
 #include <ctype.h>
-#include "../inc/return_codes.h"
-#include "../inc/string_compare.h"
-#include "../inc/iog_assert.h"
-#include "../inc/cli_colors.h"
+#include "return_codes.h"
+#include "string_compare.h"
+#include "iog_assert.h"
+#include "cli_colors.h"
 
 int strcmp_fwd(const StrLine *first_str, const StrLine *second_str) {
   IOG_ASSERT(first_str);

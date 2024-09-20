@@ -1,10 +1,10 @@
 #ifndef TEXT_SORTER_H
 #define TEXT_SORTER_H
 
-#include "../inc/text_reader.h"
-#include "../inc/text_sorter.h"
-#include "../inc/return_codes.h"
-#include "../inc/string_compare.h"
+#include "text_reader.h"
+#include "text_sorter.h"
+#include "return_codes.h"
+#include "string_compare.h"
 
 typedef int (*compare_func_t) (const void *, const void *);
 

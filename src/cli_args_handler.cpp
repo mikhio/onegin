@@ -1,8 +1,8 @@
 #include <string.h>
-#include "../inc/cli_colors.h"
-#include "../inc/iog_assert.h"
-#include "../inc/cli_args_handler.h"
-#include "../inc/return_codes.h"
+#include "cli_colors.h"
+#include "iog_assert.h"
+#include "cli_args_handler.h"
+#include "return_codes.h"
 
 ReturnCode handleProgramArgs(CliOptions *opts, int argc, const char *argv[]) {
   IOG_ASSERT(opts);

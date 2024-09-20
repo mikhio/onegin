@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../inc/cli_colors.h"
-#include "../inc/text_sorter.h"
-#include "../inc/iog_assert.h"
-#include "../inc/string_compare.h"
-#include "../inc/cli_args_handler.h"
+#include "cli_colors.h"
+#include "text_sorter.h"
+#include "iog_assert.h"
+#include "string_compare.h"
+#include "cli_args_handler.h"
 
 ReturnCode sortText(const CliOptions *opts, Text *text) {
   IOG_ASSERT(text);
@@ -68,7 +68,8 @@ ReturnCode swapElements(void *first, void *second, size_t el_size) {
     *first_byte = *second_byte;
     *second_byte = tmp;
 
-    printf(GREEN("  + (%p) %2x  (%p) %2x\n"), first_byte, (unsigned char) *first_byte, second_byte, (unsigned char) *second_byte);
+    printf(GREEN("  + (%p) %2x  (%p) %2x\n"),
+        first_byte, (unsigned char) *first_byte, second_byte, (unsigned char) *second_byte);
   }
 
   printf(MAGENTA("[SWAPED]") BLACK(" %p <--> %p  el_size = %lu\n"), first, second, el_size);
