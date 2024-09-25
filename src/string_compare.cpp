@@ -3,6 +3,7 @@
 #include "string_compare.h"
 #include "iog_assert.h"
 #include "cli_colors.h"
+#include "iog_debug_out.h"
 
 int strcmp_fwd(const StrLine *first_str, const StrLine *second_str) {
   IOG_ASSERT(first_str);
@@ -20,6 +21,10 @@ int strcmp_fwd(const StrLine *first_str, const StrLine *second_str) {
   do {
     diff = (int) tolower(first_filt.line[str_index]) - (int) tolower(second_filt.line[str_index]);
     
+    IF_DEBUGING_THEN( printf(MAGENTA(" [COMPARE CHARS] '%c' - '%c' = %d\n"),
+          first_filt.line[str_index], second_filt.line[str_index], diff
+    ) );
+
     if ((first_filt.line[str_index] == '\0') || (second_filt.line[str_index] == '\0'))
       break;
 
@@ -48,7 +53,7 @@ int strcmp_bwd(const StrLine *first_str, const StrLine *second_str) {
   do {
     diff = (int) tolower(*first) - (int) tolower(*second);
 
-    printf(MAGENTA(" [COMPARE CHARS] '%c' - '%c' = %d\n"), *first, *second, diff);
+    IF_DEBUGING_THEN( printf(MAGENTA(" [COMPARE CHARS] '%c' - '%c' = %d\n"), *first, *second, diff) );
     
     if ((first <= first_filt.line) || (second <= second_filt.line))
       break;
@@ -69,7 +74,7 @@ int mywrap_str_compare(const void *ptr1, const void *ptr2, strcmp_func_t compare
   const StrLine *str1 = (const StrLine *) ptr1;
   const StrLine *str2 = (const StrLine *) ptr2;
 
-  printf(BLUE("[COMPARE] ") BLACK(" (%p) %p, (%p) %p \n"), ptr1, str1->line, ptr2, str2->line);
+  IF_DEBUGING_THEN( printf(BLUE("[COMPARE] ") BLACK(" (%p) %p, (%p) %p \n"), ptr1, str1->line, ptr2, str2->line) );
 
   int diff = compare_func(str1, str2);
 
@@ -77,8 +82,10 @@ int mywrap_str_compare(const void *ptr1, const void *ptr2, strcmp_func_t compare
     return -diff;
   }
 
-  printf(GREEN("[COMPARED]") BLACK(" (%p) %p, (%p) %p => %d\n"), ptr1, str1->line, ptr2, str2->line, diff);
-  printf("\n");
+  IF_DEBUGING_THEN( printf(GREEN("[COMPARED]") BLACK(" (%p) %p, (%p) %p => %d\n"), 
+        ptr1, str1->line, ptr2, str2->line, diff
+  ) );
+  IF_DEBUGING_THEN( printf("\n") );
 
   return diff;
 }
@@ -100,26 +107,26 @@ int str_compare_backward(const void *ptr1, const void *ptr2) {
 ReturnCode skipExtraCharsFront(StrLine *str) {
   IOG_ASSERT(str);
 
-  printf(
+  IF_DEBUGING_THEN( printf(
       BLUE("[FILTER]  ") BLACK(" %p ") "'%s' size: %lu\n",
       str->line, str->line, str->length
-  );
+  ) );
 
 
   while (!isalpha(*str->line) && !(*str->line == '\0')) {
-    printf(RED("  [SKIP] ") "'%c' => ", str->line[0]);
+    IF_DEBUGING_THEN( printf(RED("  [SKIP] ") "'%c' => ", str->line[0]) );
 
     str->line++;
-    printf("str->line+len = '%c', ", str->line[0]);
+    IF_DEBUGING_THEN( printf("str->line+len = '%c', ", str->line[0]) );
 
     str->length--;
-    printf("str->length = '%lu'\n", str->length);
+    IF_DEBUGING_THEN( printf("str->length = '%lu'\n", str->length) );
   }
 
-  printf(
+  IF_DEBUGING_THEN( printf(
       GREEN("[FILTERED]") BLACK(" %p ") "'%s' size: %lu\n",
       str->line, str->line, str->length
-  );
+  ) );
 
   return OK;
 }
@@ -127,30 +134,29 @@ ReturnCode skipExtraCharsFront(StrLine *str) {
 ReturnCode skipExtraCharsBack(StrLine *str) {
   IOG_ASSERT(str);
 
-  printf(
+  IF_DEBUGING_THEN( printf(
       BLUE("[FILTER]  ") BLACK(" %p ") "'%s' size: %lu\n",
       str->line, str->line, str->length
-  );
+  ) );
 
   char *last_char = str->line + str->length;
 
   while (!isalpha(*last_char) && (str->length > 0)) {
-    printf(RED("  [SKIP] ") "'%c' => ", *last_char);
+    IF_DEBUGING_THEN( printf(RED("  [SKIP] ") "'%c' => ", *last_char) );
 
     last_char--;
-    printf("last_char = '%c', ", *last_char);
+    IF_DEBUGING_THEN( printf("last_char = '%c', ", *last_char) );
 
     str->length--;
-    printf("str->length = '%lu'\n", str->length);
+    IF_DEBUGING_THEN( printf("str->length = '%lu'\n", str->length) );
   }
 
-  printf(GREEN("[FILTERED]") BLACK(" %p ") "'", str->line);
+  IF_DEBUGING_THEN( printf(GREEN("[FILTERED]") BLACK(" %p ") "'", str->line) );
 
   for (int i = 0; i <= str->length; i++) {
-    printf("%c", str->line[i]);
+    IF_DEBUGING_THEN( printf("%c", str->line[i]) );
   }
 
-  printf("' size: %lu\n", str->length);
 
 
   return OK;

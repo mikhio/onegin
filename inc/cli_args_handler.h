@@ -7,7 +7,6 @@ struct CliOptions {
   const char *file_with_text;
   const char *output_file;
   int is_back;
-  int is_debuging;
 };
 
 ReturnCode handleProgramArgs (CliOptions *opts, int argc, const char *argv[]);

@@ -7,6 +7,7 @@
 #include "cli_colors.h"
 #include "iog_assert.h"
 #include "cli_args_handler.h"
+#include "iog_debug_out.h"
 
 
 ReturnCode readTextData(const CliOptions *opts, Text *text) {
@@ -70,11 +71,11 @@ ReturnCode readFileLen(FILE *text_file, Text *text) {
   if (fstat(text_fd, &stat_buf) != 0)
     return ERR_CANT_READ_FILE;
 
-  printf(BLACK("------ READING FILE STAT ------- \n"));
-  printf(BLUE("[INFO]") BLACK(" ST_SIZE:    ")  "%lld" "\n", stat_buf.st_size); 
-  printf(BLUE("[INFO]") BLACK(" ST_BLKSIZE: ")  "%d"   "\n", stat_buf.st_blksize); 
-  printf(BLUE("[INFO]") BLACK(" ST_BLOCKS:  ")  "%lld" "\n", stat_buf.st_blocks); 
-  printf("\n");
+  IF_DEBUGING_THEN( printf(BLACK("------ READING FILE STAT ------- \n")) );
+  IF_DEBUGING_THEN( printf(BLUE("[INFO]") BLACK(" ST_SIZE:    ")  "%lld" "\n", stat_buf.st_size) ); 
+  IF_DEBUGING_THEN( printf(BLUE("[INFO]") BLACK(" ST_BLKSIZE: ")  "%d"   "\n", stat_buf.st_blksize) ); 
+  IF_DEBUGING_THEN( printf(BLUE("[INFO]") BLACK(" ST_BLOCKS:  ")  "%lld" "\n", stat_buf.st_blocks) ); 
+  IF_DEBUGING_THEN( printf("\n") );
 
   text->buffer_size = stat_buf.st_size;
   text->buffer_capacity = stat_buf.st_size + 1;
@@ -92,10 +93,10 @@ ReturnCode splitTextToLines(Text *text) {
   if (allocateLinesArr(text) != OK)
     return ERR_CANT_ALLOCATE;
   
-  printf(BLACK("------ SPLITING ------- \n"));
-  printf(BLUE("[INFO] ") BLACK("lines_size     ") "= %lu\n", text->lines_size);
-  printf(BLUE("[INFO] ") BLACK("lines_capacity ") "= %lu\n", text->lines_capacity);
-  printf("\n");
+  IF_DEBUGING_THEN( printf(BLACK("------ SPLITING ------- \n")) );
+  IF_DEBUGING_THEN( printf(BLUE("[INFO] ") BLACK("lines_size     ") "= %lu\n", text->lines_size) );
+  IF_DEBUGING_THEN( printf(BLUE("[INFO] ") BLACK("lines_capacity ") "= %lu\n", text->lines_capacity) );
+  IF_DEBUGING_THEN( printf("\n") );
   
   text->lines[0].line = text->buffer;
 
@@ -109,19 +110,21 @@ ReturnCode splitTextToLines(Text *text) {
       text->lines[line_count-1].length = text->lines[line_count].line - text->lines[line_count-1].line - 1;
       text->buffer[i] = '\0';
 
-      printf(GREEN("[READ] ") BLACK("%p %p") " '%s' size: %lu\n", 
+      IF_DEBUGING_THEN( printf(GREEN("[READ] ") BLACK("%p %p") " '%s' size: %lu\n", 
           &text->lines[line_count-1].line,
           text->lines[line_count-1].line,
           text->lines[line_count-1].line, 
           text->lines[line_count-1].length
-      );
+      ) );
       line_count++;
     }
   }
   
-  printf("\n");
-  printf(BLUE("[INFO] ") BLACK("line_count") " = %lu -> " BLACK("lines_size") " = %lu\n", line_count, text->lines_size);
-  printf("\n");
+  IF_DEBUGING_THEN( printf("\n") );
+  IF_DEBUGING_THEN( printf(BLUE("[INFO] ") BLACK("line_count") " = %lu -> " BLACK("lines_size") " = %lu\n",
+      line_count, text->lines_size
+  ) );
+  IF_DEBUGING_THEN( printf("\n") );
 
   return OK;
 }

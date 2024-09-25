@@ -12,9 +12,8 @@
 /// If not debug mode, then ignore asserts
 #define IOG_ASSERT(x) ()
 
-#endif // IOG_NDEBUG
+#else // IOG_NDEBUG
 
-#ifndef IOG_NDEBUG
 
 /// Calling assert macros
 

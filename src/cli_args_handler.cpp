@@ -3,6 +3,7 @@
 #include "iog_assert.h"
 #include "cli_args_handler.h"
 #include "return_codes.h"
+#include "iog_debug_out.h"
 
 ReturnCode handleProgramArgs(CliOptions *opts, int argc, const char *argv[]) {
   IOG_ASSERT(opts);
@@ -22,8 +23,6 @@ ReturnCode handleProgramArgs(CliOptions *opts, int argc, const char *argv[]) {
       }
 
       opts->output_file = argv[i];
-    } else if (!strcmp(argv[i], "-d") || !strcmp(argv[i], "--debug")) {
-      opts->is_debuging = 1;
     } else {
       opts->file_with_text = argv[i];
     }
@@ -37,12 +36,11 @@ ReturnCode handleProgramArgs(CliOptions *opts, int argc, const char *argv[]) {
 ReturnCode printOpts(const CliOptions *opts) {
   IOG_ASSERT(opts);
 
-  fprintf(stderr, BLACK("-------- CLI OPTIONS ------------" "\n"));
-  fprintf(stderr, BLUE("[INFO] ") BLACK("TEXT FILE:   ") "%s\n", opts->file_with_text);
-  fprintf(stderr, BLUE("[INFO] ") BLACK("OUTPUT FILE: ") "%s\n", opts->output_file);
-  fprintf(stderr, BLUE("[INFO] ") BLACK("IS_BACKWARD: ") "%d\n", opts->is_back);
-  fprintf(stderr, BLUE("[INFO] ") BLACK("DEBUG:       ") "%d\n", opts->is_debuging);
-  fprintf(stderr, "\n");
+  IF_DEBUGING_THEN( fprintf(stderr, BLACK("-------- CLI OPTIONS ------------" "\n")) );
+  IF_DEBUGING_THEN( fprintf(stderr, BLUE("[INFO] ") BLACK("TEXT FILE:   ") "%s\n", opts->file_with_text) );
+  IF_DEBUGING_THEN( fprintf(stderr, BLUE("[INFO] ") BLACK("OUTPUT FILE: ") "%s\n", opts->output_file) );
+  IF_DEBUGING_THEN( fprintf(stderr, BLUE("[INFO] ") BLACK("IS_BACKWARD: ") "%d\n", opts->is_back) );
+  IF_DEBUGING_THEN( fprintf(stderr, "\n") );
 
   return OK;
 }
